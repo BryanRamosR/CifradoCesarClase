@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Encriptador César</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+
+        <header>
+            <h1> Encriptador César</h1>
+            <p>Convierte tu texto de forma segura con el cifrado clásico.</p>
+        </header>
+
+        <section id="formulario-cifrado">
+            <form method="POST">
+                <label for="text">Introduce el texto:</label>
+                <input type="text" id="text" name="text" value="{{ text }}">
+
+                <label for="shift">Cantidad de desplazamiento:</label>
+                <input type="number" id="shift" name="shift" value="{{ shift }}">
+
+                <button type="submit"> Aplicar cifrado</button>
+            </form>
+        </section>
+
+        {% if encrypted %}
+        <section id="resultado">
+            <h2>Resultado del cifrado:</h2>
+            <article>
+                <p id="encrypted-text" class="encrypted">{{ encrypted }}</p>
+            </article>
+        </section>
+        {% endif %}
+
+        <section id="historial">
+            <h2> Historial de cifrados anteriores</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Desplazamiento</th>
+                        <th>Original</th>
+                        <th>Cifrado</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in historial %}
+                        <tr>
+                            <td>{{ item[0] }}</td>
+                            <td>{{ item[1] }}</td>
+                            <td>{{ item[2] }}</td>
+                            <td>{{ item[3] }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">No hay registros aún.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
+
